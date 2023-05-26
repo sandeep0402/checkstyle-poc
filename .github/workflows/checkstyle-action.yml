@@ -21,18 +21,18 @@ jobs:
           distribution: 'adopt'
 
       - name: Run Checkstyle HTML report
-        run: mvn checkstyle:checkstyle-aggregate
+        run: mvn checkstyle:checkstyle
 
       - name: Archive Checkstyle reports and related files
         uses: actions/upload-artifact@v2
         with:
           name: checkstyle-reports
           path: target/site
-          
+
       - name: Check for Checkstyle errors
         id: checkstyle-errors
         run: |
-          severity_errors=$(grep -c "Severity: error" target/site/checkstyle-aggregate.html)
+          severity_errors=$(grep -c "Severity: error" target/site/checkstyle.html)
           if [[ $severity_errors -gt 0 ]]; then
             echo "::set-output name=has_errors::true"
           else
@@ -60,6 +60,6 @@ jobs:
               conclusion: 'failure',
               output: {
                 title: 'Checkstyle Report',
-                summary: 'Checkstyle found errors in the code.',
+                summary: 'Checkstyle found Errors in the code.',
               },
             });
