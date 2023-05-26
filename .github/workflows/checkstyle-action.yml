@@ -23,6 +23,12 @@ jobs:
       - name: Run Checkstyle HTML report
         run: mvn checkstyle:checkstyle
 
+      - name: Archive Checkstyle reports and related files
+        uses: actions/upload-artifact@v2
+        with:
+          name: checkstyle-reports
+          path: target/site
+
       - name: Check for Checkstyle errors
         id: checkstyle-errors
         run: |
@@ -54,6 +60,6 @@ jobs:
               conclusion: 'failure',
               output: {
                 title: 'Checkstyle Report',
-                summary: 'Checkstyle found errors in the code.',
+                summary: 'Checkstyle found Errors in the code.',
               },
             });
